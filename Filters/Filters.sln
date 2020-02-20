@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Filters", "Filters\Filters.vcxproj", "{0E12B383-E7D9-446E-8B1C-C2223F82F7E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E12B383-E7D9-446E-8B1C-C2223F82F7E2}.Debug|x64.ActiveCfg = Debug|x64
+		{0E12B383-E7D9-446E-8B1C-C2223F82F7E2}.Debug|x64.Build.0 = Debug|x64
+		{0E12B383-E7D9-446E-8B1C-C2223F82F7E2}.Release|x64.ActiveCfg = Release|x64
+		{0E12B383-E7D9-446E-8B1C-C2223F82F7E2}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8143ACD-2E26-4447-949D-75A2A2AB24F8}
+	EndGlobalSection
+EndGlobal

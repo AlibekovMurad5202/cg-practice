@@ -46,7 +46,13 @@
     <ClCompile Include="TSobelYFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TSharpnessFilter.cpp">
+    <ClCompile Include="TSharpnessFilter1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TSharpnessFilter2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TMotionBlurFIlter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,7 +87,13 @@
     <ClInclude Include="TSobelXFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TSharpnessFilter.h">
+    <ClInclude Include="TSharpnessFilter2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TSharpnessFilter1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TMotionBlurFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

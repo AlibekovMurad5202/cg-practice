@@ -87,8 +87,10 @@
     <ClCompile Include="TGrayScaleFilter.cpp" />
     <ClCompile Include="TMatrixFilter.cpp" />
     <ClCompile Include="TInvertFilter.cpp" />
+    <ClCompile Include="TMotionBlurFIlter.cpp" />
     <ClCompile Include="TSepiaFilter.cpp" />
-    <ClCompile Include="TSharpnessFilter.cpp" />
+    <ClCompile Include="TSharpnessFilter1.cpp" />
+    <ClCompile Include="TSharpnessFilter2.cpp" />
     <ClCompile Include="TSobelXFilter.cpp" />
     <ClCompile Include="TSobelYFilter.cpp" />
   </ItemGroup>
@@ -100,8 +102,10 @@
     <ClInclude Include="TMatrixFilter.h" />
     <ClInclude Include="TFilter.h" />
     <ClInclude Include="TInvertFilter.h" />
+    <ClInclude Include="TMotionBlurFilter.h" />
     <ClInclude Include="TSepiaFilter.h" />
-    <ClInclude Include="TSharpnessFilter.h" />
+    <ClInclude Include="TSharpnessFilter1.h" />
+    <ClInclude Include="TSharpnessFilter2.h" />
     <ClInclude Include="TSobelXFilter.h" />
     <ClInclude Include="TSobelYFilter.h" />
   </ItemGroup>

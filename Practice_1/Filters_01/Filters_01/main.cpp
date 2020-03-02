@@ -9,7 +9,9 @@
 #include "TBrightnessFilter.h"
 #include "TSobelYFilter.h"
 #include "TSobelXFilter.h"
-#include "TSharpnessFilter.h"
+#include "TSharpnessFilter1.h"
+#include "TSharpnessFilter2.h"
+#include "TMotionBlurFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,7 +23,7 @@ int main(int argc, char *argv[])
 
     QImage image;
     image.load(imageName.c_str());
-    
+    /*
     std::cout << "Copying" << std::endl;
     image.save("Images//tmp_cp.png");
     
@@ -31,16 +33,16 @@ int main(int argc, char *argv[])
     inverted_image.save("Images//tmp_inv.png");
     delete invert;
 
-    std::cout << "Bluring image" << std::endl;
+    std::cout << "Blurring image" << std::endl;
     TBlurFilter *blur = new TBlurFilter();
-    QImage blured_image = blur->calculateNewImagePixMap(image, 0);
-    blured_image.save("Images//tmp_blr.png");
+    QImage blurred_image = blur->calculateNewImagePixMap(image, 0);
+    blurred_image.save("Images//tmp_blr.png");
     delete blur;
     
-    std::cout << "Gaussian bluring image" << std::endl;
+    std::cout << "Gaussian blurring image" << std::endl;
     TGaussianBlurFilter *gaussian_blur = new TGaussianBlurFilter();
-    QImage gaussian_blured_image = gaussian_blur->calculateNewImagePixMap(image, 3);
-    gaussian_blured_image.save("Images//tmp_gblr.png");
+    QImage gaussian_blurred_image = gaussian_blur->calculateNewImagePixMap(image, 3);
+    gaussian_blurred_image.save("Images//tmp_gblr.png");
     delete gaussian_blur;
 
     std::cout << "Graying image" << std::endl;
@@ -73,11 +75,24 @@ int main(int argc, char *argv[])
     sobel_x_filtered_image.save("Images//tmp_sbx.png");
     delete sobel_x;
     
-    std::cout << "Sharpness filtering image" << std::endl;
-    TSharpnessFilter *sharpness = new TSharpnessFilter();
-    QImage sharpness_filtered_image = sharpness->calculateNewImagePixMap(image, 0);
-    sharpness_filtered_image.save("Images//tmp_shrp.png");
-    delete sharpness;
-    
+    std::cout << "Sharpness1 filtering image" << std::endl;
+    TSharpnessFilter1 *sharpness1 = new TSharpnessFilter1();
+    QImage sharpness1_filtered_image = sharpness1->calculateNewImagePixMap(image, 0);
+    sharpness1_filtered_image.save("Images//tmp_shrp1.png");
+    delete sharpness1;
+
+    std::cout << "Sharpness2 filtering image" << std::endl;
+    TSharpnessFilter2 *sharpness2 = new TSharpnessFilter2();
+    QImage sharpness2_filtered_image = sharpness2->calculateNewImagePixMap(image, 0);
+    sharpness2_filtered_image.save("Images//tmp_shrp2.png");
+    delete sharpness2;
+    */
+    std::cout << "Motion blurring image" << std::endl;
+    TMotionBlurFilter *motion_blur = new TMotionBlurFilter();
+    QImage motion_blurred_image = motion_blur->calculateNewImagePixMap(image, 
+      image.width() > image.height() ? image.height() : image.width());
+    motion_blurred_image.save("Images//tmp_mblr.png");
+    delete motion_blur;
+
     return a.exec();
 }

@@ -1,6 +1,6 @@
-#include "TSharpnessFilter.h"
+#include "TSharpnessFilter1.h"
 
-TSharpnessFilter::TSharpnessFilter()
+TSharpnessFilter1::TSharpnessFilter1()
 {
   int matrix_size = 2 * matrix_radius + 1;
   weight_matrix = new float[matrix_size * matrix_size];

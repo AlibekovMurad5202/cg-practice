@@ -82,16 +82,28 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TBlurFilter.cpp" />
+    <ClCompile Include="TBrightnessFilter.cpp" />
     <ClCompile Include="TGaussianBlurFilter.cpp" />
+    <ClCompile Include="TGrayScaleFilter.cpp" />
     <ClCompile Include="TMatrixFilter.cpp" />
     <ClCompile Include="TInvertFilter.cpp" />
+    <ClCompile Include="TSepiaFilter.cpp" />
+    <ClCompile Include="TSharpnessFilter.cpp" />
+    <ClCompile Include="TSobelXFilter.cpp" />
+    <ClCompile Include="TSobelYFilter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TBlurFilter.h" />
+    <ClInclude Include="TBrightnessFilter.h" />
     <ClInclude Include="TGaussianBlurFilter.h" />
+    <ClInclude Include="TGrayScaleFilter.h" />
     <ClInclude Include="TMatrixFilter.h" />
     <ClInclude Include="TFilter.h" />
     <ClInclude Include="TInvertFilter.h" />
+    <ClInclude Include="TSepiaFilter.h" />
+    <ClInclude Include="TSharpnessFilter.h" />
+    <ClInclude Include="TSobelXFilter.h" />
+    <ClInclude Include="TSobelYFilter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -77,6 +77,30 @@ public:
   QImage calculateNewImagePixMap(const QImage& _image);
 };
 
+class TMaximumFilter : public Filter {
+protected:
+  int radius;
+  double* weight_matrix;
+
+public:
+  TMaximumFilter(int _imageRadius = 1) : radius(_imageRadius) {};
+  ~TMaximumFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
+class TMinimumFilter : public Filter {
+protected:
+  int radius;
+  double* weight_matrix;
+
+public:
+  TMinimumFilter(int _imageRadius = 1) : radius(_imageRadius) {};
+  ~TMinimumFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
 class TRotationFilter : public Filter {
 protected:
   double angle;
@@ -87,6 +111,30 @@ public:
   TRotationFilter(double _degrees = 90., int _x0 = 0, int _y0 = 0)
     : x_rotation_center(_x0), y_rotation_center(_y0), angle(_degrees / 180 * M_PI) {}
   ~TRotationFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
+class THorizontalShiftFilter : public Filter {
+protected:
+  double shift;
+
+public:
+  THorizontalShiftFilter(double _shift = 50.)
+    : shift(_shift) {}
+  ~THorizontalShiftFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
+class TVerticalShiftFilter : public Filter {
+protected:
+  double shift;
+
+public:
+  TVerticalShiftFilter(double _shift = 50.)
+    : shift(_shift) {}
+  ~TVerticalShiftFilter() {};
 
   QImage calculateNewImagePixMap(const QImage& _image);
 };
@@ -203,10 +251,47 @@ public:
   QImage calculateNewImagePixMap(const QImage& _image);
 };
 
+class TLinearCorrectionFilter : public Filter {
+public:
+  TLinearCorrectionFilter() {};
+  ~TLinearCorrectionFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
+class TGammaCorrectionFilter : public Filter {
+protected:
+  double gamma;
+  double coef;
+
+public:
+  TGammaCorrectionFilter(double _coef = 1, double _gamma = 1)
+  : coef(_coef), gamma(_gamma) {};
+  ~TGammaCorrectionFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
+class TPerfectReflectorFilter : public Filter {
+public:
+  TPerfectReflectorFilter() {};
+  ~TPerfectReflectorFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
 class TGlassFilter : public Filter {
 public:
   TGlassFilter() {};
   ~TGlassFilter() {};
+
+  QImage calculateNewImagePixMap(const QImage& _image);
+};
+
+class TLuminousEdgesFilter : public Filter {
+public:
+  TLuminousEdgesFilter() {};
+  ~TLuminousEdgesFilter() {};
 
   QImage calculateNewImagePixMap(const QImage& _image);
 };

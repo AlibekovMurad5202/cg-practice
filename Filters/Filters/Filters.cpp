@@ -148,6 +148,62 @@ QImage TMedianFilter::calculateNewImagePixMap(const QImage& _image)
   return result;
 }
 
+QImage TMaximumFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  QImage result(_image);
+  int height = _image.height();
+  int width  = _image.width();
+
+  for (int y = 0; y < height; y++)
+    for (int x = 0; x < width; x++)
+    {
+      int max_intensity = 0;
+      QColor max_color(0, 0, 0);
+      for (int j = -radius; j <= radius; j++)
+        for (int i = -radius; i <= radius; i++)
+        {
+          QColor color = _image.pixelColor(clamp<int>(x + i, 0, width  - 1),
+                                           clamp<int>(y + j, 0, height - 1));
+          int intensity = INTENSITY_INT(color);
+          if (max_intensity < intensity)
+          {
+            max_intensity = intensity;
+            max_color = color;
+          }
+        }
+      result.setPixelColor(x, y, max_color);
+    }
+  return result;
+}
+
+QImage TMinimumFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  QImage result(_image);
+  int height = _image.height();
+  int width  = _image.width();
+
+  for (int y = 0; y < height; y++)
+    for (int x = 0; x < width; x++)
+    {
+      int min_intensity = 255;
+      QColor min_color(255, 255, 255);
+      for (int j = -radius; j <= radius; j++)
+        for (int i = -radius; i <= radius; i++)
+        {
+          QColor color = _image.pixelColor(clamp<int>(x + i, 0, width  - 1),
+                                           clamp<int>(y + j, 0, height - 1));
+          int intensity = INTENSITY_INT(color);
+          if (min_intensity > intensity)
+          {
+            min_intensity = intensity;
+            min_color = color;
+          }
+        }
+      result.setPixelColor(x, y, min_color);
+    }
+  return result;
+}
+
 QImage TRotationFilter::calculateNewImagePixMap(const QImage& _image) 
 {
   int height = _image.height();
@@ -173,6 +229,50 @@ QImage TRotationFilter::calculateNewImagePixMap(const QImage& _image)
       result.setPixelColor(x_result, y_result, color);
     }
 
+  return result;
+}
+
+QImage TVerticalShiftFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  int height = _image.height();
+  int width  = _image.width();
+  QImage result(width, height, QImage::Format_RGB32);
+
+  for (double y_result = 0; y_result < height; y_result++)
+    for (double x_result = 0; x_result < width; x_result++)
+    {
+      int x = int(x_result);
+      int y = int(y_result + shift);
+
+      QColor color;
+      if ((y < 0) || (y > height - 1))
+        color = QColor(0, 0, 0);
+      else
+        color = _image.pixelColor(x, y);
+      result.setPixelColor(x_result, y_result, color);
+    }
+  return result;
+}
+
+QImage THorizontalShiftFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  int height = _image.height();
+  int width  = _image.width();
+  QImage result(width, height, QImage::Format_RGB32);
+
+  for (int y_result = 0; y_result < height; y_result++)
+    for (int x_result = 0; x_result < width; x_result++)
+    {
+      int x = int(x_result + shift);
+      int y = int(y_result);
+
+      QColor color;
+      if ((x < 0) || (x > width - 1))
+        color = QColor(0, 0, 0);
+      else
+        color = _image.pixelColor(x, y);
+      result.setPixelColor(x_result, y_result, color);
+    }
   return result;
 }
 
@@ -339,6 +439,103 @@ QImage THorizontalWaveFilter::calculateNewImagePixMap(const QImage& _image)
   return result;
 }
 
+QImage TLinearCorrectionFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  QImage result(_image);
+  int height = result.height();
+  int width  = result.width();
+
+  int max_red   = 0;
+  int max_green = 0;
+  int max_blue  = 0;
+
+  int min_red   = 255;
+  int min_green = 255;
+  int min_blue  = 255;
+
+  for (int y = 0; y < height; y++)
+    for (int x = 0; x < width; x++)
+    {
+      QColor color = _image.pixelColor(x, y);
+      if (color.red()   > max_red)   max_red   = color.red();
+      if (color.green() > max_green) max_green = color.green();
+      if (color.blue()  > max_blue)  max_blue  = color.blue();
+
+      if (color.red()   < min_red)   min_red   = color.red();
+      if (color.green() < min_green) min_green = color.green();
+      if (color.blue()  < min_blue)  min_blue  = color.blue();
+    }
+
+  for (int y = 0; y < height; y++)
+    for (int x = 0; x < width; x++)
+    {
+      QColor color = _image.pixelColor(x, y);
+      double red_scale   = 255 / (max_red   - min_red);
+      double green_scale = 255 / (max_green - min_green);
+      double blue_scale  = 255 / (max_blue  - min_blue);
+      color.setRgb(clamp<int>(int((color.red()   - min_red)   *   red_scale), 0, 255),
+                   clamp<int>(int((color.green() - min_green) * green_scale), 0, 255),
+                   clamp<int>(int((color.blue()  - min_blue)  *  blue_scale), 0, 255));
+      result.setPixelColor(x, y, color);
+    }
+  return result;
+}
+
+QImage TGammaCorrectionFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  QImage result(_image);
+  int height = result.height();
+  int width = result.width();
+
+  for (int y = 0; y < height; y++)
+    for (int x = 0; x < width; x++)
+    {
+      QColor color = _image.pixelColor(x, y);
+      int result_red   = int(coef * pow(color.red(),   gamma));
+      int result_green = int(coef * pow(color.green(), gamma));
+      int result_blue  = int(coef * pow(color.blue(),  gamma));
+      color.setRgb(clamp<int>(result_red,   0, 255),
+                   clamp<int>(result_green, 0, 255),
+                   clamp<int>(result_blue,  0, 255));
+      result.setPixelColor(x, y, color);
+    }
+  return result;
+}
+
+QImage TPerfectReflectorFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  QImage result(_image);
+  int height = result.height();
+  int width  = result.width();
+
+  int max_red   = 0;
+  int max_green = 0;
+  int max_blue  = 0;
+
+  for (int y = 0; y < height; y++)
+    for (int x = 0; x < width; x++)
+    {
+      QColor color = _image.pixelColor(x, y);
+      if (color.red()   > max_red)   max_red   = color.red();
+      if (color.green() > max_green) max_green = color.green();
+      if (color.blue()  > max_blue)  max_blue  = color.blue();
+    }
+
+  for (int y = 0; y < height; y++)
+    for (int x = 0; x < width; x++)
+    {
+      QColor color = _image.pixelColor(x, y);
+      double red_scale   = 255. / max_red;
+      double green_scale = 255. / max_green;
+      double blue_scale  = 255. / max_blue;
+      color.setRgb(clamp<int>(int(color.red()   *   red_scale), 0, 255),
+                   clamp<int>(int(color.green() * green_scale), 0, 255),
+                   clamp<int>(int(color.blue()  *  blue_scale), 0, 255));
+      result.setPixelColor(x, y, color);
+    }
+  return result;
+}
+
 QImage TGlassFilter::calculateNewImagePixMap(const QImage& _image) 
 {
   QImage result(_image);
@@ -354,6 +551,19 @@ QImage TGlassFilter::calculateNewImagePixMap(const QImage& _image)
       result.setPixelColor(x_result, y_result, color);
     }
   return result;
+}
+
+QImage TLuminousEdgesFilter::calculateNewImagePixMap(const QImage& _image)
+{
+  TMedianFilter median_filter;
+  TSobelYFilter sobel_filter;
+  TMaximumFilter max_filter;
+
+  QImage median_image = median_filter.calculateNewImagePixMap(_image);
+  QImage  sobel_image =  sobel_filter.calculateNewImagePixMap(median_image);
+  QImage result_image =    max_filter.calculateNewImagePixMap(sobel_image);
+
+  return result_image;
 }
 
 QImage TGrayWorldFilter::calculateNewImagePixMap(const QImage& _image) 

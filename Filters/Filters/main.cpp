@@ -87,6 +87,28 @@ int main(int argc, char *argv[])
     std::cout << std::endl;
 
 
+    INFO("Applying the filter \"Maximum\"");
+    TMaximumFilter* maximum_filter = new TMaximumFilter();
+    QImage maximum_image = maximum_filter->calculateNewImagePixMap(image);
+    if (maximum_image.save("Results//maximum_image.jpg"))
+      RESULT("Result image was saved to [ Results/maximum_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete maximum_filter;
+    std::cout << std::endl;
+
+
+    INFO("Applying the filter \"Minimum\"");
+    TMinimumFilter* minimum_filter = new TMinimumFilter();
+    QImage minimum_image = minimum_filter->calculateNewImagePixMap(image);
+    if (minimum_image.save("Results//minimum_image.jpg"))
+      RESULT("Result image was saved to [ Results/minimum_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete minimum_filter;
+    std::cout << std::endl;
+
+
     INFO("Applying the filter \"Rotation\"");
     TRotationFilter* rotation_filter = new TRotationFilter(30., 0, 0);
     QImage rotated_image = rotation_filter->calculateNewImagePixMap(image);
@@ -95,6 +117,28 @@ int main(int argc, char *argv[])
     else
       ERROR("Failed to save image");
     delete rotation_filter;
+    std::cout << std::endl;
+
+
+    INFO("Applying the filter \"Vertical Shift\"");
+    TVerticalShiftFilter* vshift_filter = new TVerticalShiftFilter(50.);
+    QImage vshift_image = vshift_filter->calculateNewImagePixMap(image);
+    if (vshift_image.save("Results//vshift_image.jpg"))
+      RESULT("Result image was saved to [ Results/vshift_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete vshift_filter;
+    std::cout << std::endl;
+
+
+    INFO("Applying the filter \"Horizontal Shift\"");
+    THorizontalShiftFilter* hshift_filter = new THorizontalShiftFilter(50.);
+    QImage hshift_image = hshift_filter->calculateNewImagePixMap(image);
+    if (hshift_image.save("Results//hshift_image.jpg"))
+      RESULT("Result image was saved to [ Results/hshift_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete hshift_filter;
     std::cout << std::endl;
 
 
@@ -196,6 +240,39 @@ int main(int argc, char *argv[])
     delete hwave_filter;
     std::cout << std::endl;
 
+
+    INFO("Applying the filter \"Linear Correction\"");
+    TLinearCorrectionFilter* lin_corr_filter = new TLinearCorrectionFilter();
+    QImage lin_corr_image = lin_corr_filter->calculateNewImagePixMap(image);
+    if (lin_corr_image.save("Results//lin_corr_image.jpg"))
+      RESULT("Result image was saved to [ Results/lin_corr_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete lin_corr_filter;
+    std::cout << std::endl;
+
+
+    INFO("Applying the filter \"Gamma Correction\"");
+    TGammaCorrectionFilter* gamma_corr_filter = new TGammaCorrectionFilter(1.1, 1.1);
+    QImage gamma_corr_image = gamma_corr_filter->calculateNewImagePixMap(image);
+    if (gamma_corr_image.save("Results//gamma_corr_image.jpg"))
+      RESULT("Result image was saved to [ Results/gamma_corr_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete gamma_corr_filter;
+    std::cout << std::endl;
+
+
+    INFO("Applying the filter \"Perfect Reflector\"");
+    TPerfectReflectorFilter* p_refl_filter = new TPerfectReflectorFilter();
+    QImage p_refl_image = p_refl_filter->calculateNewImagePixMap(image);
+    if (p_refl_image.save("Results//p_refl_image.jpg"))
+      RESULT("Result image was saved to [ Results/p_refl_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete p_refl_filter;
+    std::cout << std::endl;
+
     
     INFO("Applying the filter \"Glass\"");
     TGlassFilter* glass_filter = new TGlassFilter();
@@ -205,6 +282,17 @@ int main(int argc, char *argv[])
     else
       ERROR("Failed to save image");
     delete glass_filter;
+    std::cout << std::endl;
+
+
+    INFO("Applying the filter \"Luminous Edges\"");
+    TLuminousEdgesFilter* lumin_edges_filter = new TLuminousEdgesFilter();
+    QImage lumin_edges_image = lumin_edges_filter->calculateNewImagePixMap(image);
+    if (lumin_edges_image.save("Results//lumin_edges_image.jpg"))
+      RESULT("Result image was saved to [ Results/lumin_edges_image.jpg ]");
+    else
+      ERROR("Failed to save image");
+    delete lumin_edges_filter;
     std::cout << std::endl;
 
 

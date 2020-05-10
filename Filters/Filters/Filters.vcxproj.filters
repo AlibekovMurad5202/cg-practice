@@ -27,10 +27,29 @@
     <ClCompile Include="Filters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Filters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\masks\default_morphological_mask.msk">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\images\image.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

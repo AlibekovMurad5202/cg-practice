@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0E12B383-E7D9-446E-8B1C-C2223F82F7E2}</ProjectGuid>
+    <ProjectGuid>{24F0D874-A207-4860-A01F-D5D6B8DC7901}</ProjectGuid>
     <Keyword>QtVS_v302</Keyword>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
@@ -82,9 +82,18 @@
   <ItemGroup>
     <ClCompile Include="Filters.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mask.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Filters.h" />
+    <ClInclude Include="includes.h" />
+    <ClInclude Include="Mask.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\masks\default_morphological_mask.msk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\images\image.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
